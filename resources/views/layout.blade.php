@@ -8,6 +8,7 @@
     <title>Argon Software: Student Crud App</title>
 </head>
 <body>
+    <x-navbar />
     @yield('content')
 </body>
 </html>
