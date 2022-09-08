@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
     <x-forms.section heading="Add Student">
-        <form action="/admin/students/store" method="post">
+        <form action="/admin/students/store" method="post" enctype="multipart/form-data">
             @csrf
             <x-forms.input name="first_name" type="text" required/>
             <x-forms.input name="middle_name" type="text" required/>
