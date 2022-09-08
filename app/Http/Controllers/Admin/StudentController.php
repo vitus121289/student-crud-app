@@ -29,6 +29,8 @@ class StudentController extends Controller
             'address' => 'required'
         ]);
 
+        $attributes['photo'] = request()->file('photo')->store('student_id');
+
         Student::create($attributes);
 
         return redirect('admin/students');
