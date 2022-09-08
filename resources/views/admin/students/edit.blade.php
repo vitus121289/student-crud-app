@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
     <x-forms.section heading="Edit Student Data">
-        <form action="/admin/students/{{ $student->id }}" method="post">
+        <form action="/admin/students/{{ $student->id }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <x-forms.input name="first_name" value="{{ $student->first_name }}" type="text" required/>
