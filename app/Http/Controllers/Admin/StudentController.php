@@ -19,15 +19,7 @@ class StudentController extends Controller
     }
 
     public function store() {
-        $attributes = request()->validate([
-            'first_name' => ['required', 'max:255'],
-            'middle_name' => ['required', 'max:255'],
-            'last_name' => ['required', 'max:255'],
-            'birthdate' => ['required', 'date'],
-            'photo' => ['image', 'nullable'],
-            'section' => 'nullable',
-            'address' => 'required'
-        ]);
+        $attributes = $this->validateStudent();
 
         $attributes['photo'] = request()->file('photo')->store('student_id');
 
@@ -43,15 +35,11 @@ class StudentController extends Controller
     }
 
     public function update(Student $student) {
-        $attributes = request()->validate([
-            'first_name' => ['required', 'max:255'],
-            'middle_name' => ['required', 'max:255'],
-            'last_name' => ['required', 'max:255'],
-            'birthdate' => ['required', 'date'],
-            'photo' => ['image', 'nullable'],
-            'section' => 'nullable',
-            'address' => 'required'
-        ]);
+        $attributes = $this->validateStudent($student);
+
+        if (isset($attributes['photo'])) {
+            $attributes['photo'] = request()->file('photo')->store('student_id');
+        }
 
         $student->update($attributes);
 
@@ -62,5 +50,17 @@ class StudentController extends Controller
         $student->delete();
 
         return redirect('/admin/students');
+    }
+
+    private function validateStudent(?Student $student = null) {
+        return request()->validate([
+            'first_name' => ['required', 'max:255'],
+            'middle_name' => ['required', 'max:255'],
+            'last_name' => ['required', 'max:255'],
+            'birthdate' => ['required', 'date'],
+            'photo' => is_null($student) ? ['required', 'image'] : 'image',
+            'section' => 'nullable',
+            'address' => 'required'
+        ]);
     }
 }
