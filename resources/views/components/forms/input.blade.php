@@ -7,4 +7,9 @@
         class="my-3 w-full border-none bg-transparent outline-none focus:outline-none"
         {{ $attributes }}
     />
+    <div class="text-red-500">
+        @error($name)
+            {{ $message }}
+        @enderror
+    </div>
 </div>
