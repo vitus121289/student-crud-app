@@ -66,6 +66,14 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="flex space-x-4">
+                            <a
+                                href="/admin/students/create"
+                                class="hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium mx-auto"
+                            >
+                                Add Student
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
