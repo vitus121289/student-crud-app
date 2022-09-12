@@ -35,10 +35,11 @@
                 <div class="hidden sm:ml-6 sm:block">
                     <div class="flex space-x-4">
                     <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <x-navigation.menu href="/admin/students" :active="request()->is('admin/students')">Dashboard</x-navigation.menu>
-                        <x-navigation.menu href="/admin/students/create" :active="request()->is('admin/students/create')">Create</x-navigation.menu>
-                        <x-navigation.menu href="#">Projects</x-navigation.menu>
-                        <x-navigation.menu href="#">Calendar</x-navigation.menu>
+                        <x-navigation.menu href="/">Home</x-navigation.menu>
+                        @can('admin')
+                            <x-navigation.menu href="/admin/students" :active="request()->is('admin/students')">List Students</x-navigation.menu>
+                            {{-- <x-navigation.menu href="/admin/students/create" :active="request()->is('admin/students/create')">Create</x-navigation.menu> --}}
+                        @endcan
                     </div>
                 </div>
             </div>
@@ -91,7 +92,19 @@
                         <!-- Active: "bg-gray-100", Not Active: "" -->
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+                        <a href="{{ route('logout') }}"
+                            class="block px-4 py-2 text-sm text-gray-700"
+                            role="menuitem"
+                            tabindex="-1"
+                            id="user-menu-item-2"
+                            x-data={}
+                            @click.prevent = "document.querySelector('#logout-form').submit()"
+                        >
+                            Sign out
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="post" hidden>
+                            @csrf
+                        </form>
                     </div>
                 </div>
             </div>
